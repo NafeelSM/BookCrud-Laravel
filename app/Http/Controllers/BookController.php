@@ -31,12 +31,15 @@ class BookController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
+            //validation
             'title' => 'required|string|min:5|max:255|unique:books',
             'author' => 'required|string|min:10',
-            'isbn' => 'required|string|min:10',
-            'description' => 'required|string|min:5|max:255|unique:books',
 
         ]);
+
+        //create books
+        $request->user()->books()->create($validated);
+        dd('created');
 
 
     }
@@ -65,8 +68,7 @@ class BookController extends Controller
         $book->update($request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
-            'isbn' => 'required|string|max:255',
-            'description' => 'nullable|string'
+
         ]));
         return redirect()->route('books.index');
     }

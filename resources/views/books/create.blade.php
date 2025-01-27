@@ -10,14 +10,14 @@
             <form method="post" action="{{ route('books.store') }}" class="mt-6 space-y-6">
                 @csrf
                 <div>
-                    <x-input-label for="title" :value="__('Name')" />
+                    <x-input-label for="title" :value="__('Title')" />
                     <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title')" required autofocus autocomplete="title" />
                     <x-input-error class="mt-2" :messages="$errors->get('title')" />
                 </div>
                 <div>
-                    <x-input-label for="body" :value="__('Body')" />
-                    <x-textarea-input class="mt-1 block w-full">{{ old('body')}}</x-textarea-input>
-                    <x-input-error class="mt-2" :messages="$errors->get('body')" />
+                    <x-input-label for="author" :value="__('Author')" />
+                    <x-textarea-input name='author' class="mt-1 block w-full">{{ old('author')}}</x-textarea-input>
+                    <x-input-error class="mt-2" :messages="$errors->get('author')" />
                 </div>
 
 
