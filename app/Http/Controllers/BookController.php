@@ -34,6 +34,8 @@ class BookController extends Controller
             //validation
             'title' => 'required|string|min:5|max:255|unique:books',
             'author' => 'required|string|min:10',
+            'isbn' => 'required|string|min:10',
+            'description' => 'required|string|min:10',
 
         ]);
 
