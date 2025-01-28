@@ -13,6 +13,7 @@ class BookController extends Controller
      */
     public function index()
     {
+        //retrive all books from DB
         $books = Book::all();
         return view('books.index', compact('books'));
     }
