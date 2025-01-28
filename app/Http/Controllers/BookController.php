@@ -13,8 +13,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        //retrive all books from DB
-        $books = Book::all();
+
+        $books = Book::paginate(3);
+
+    // Pass the paginated books to the view
         return view('books.index', compact('books'));
     }
 
@@ -35,7 +37,7 @@ class BookController extends Controller
             //validation
             'title' => 'required|string|min:5|max:255|unique:books',
             'author' => 'required|string|min:10',
-            'isbn' => 'required|string|min:10',
+            'isbn' => 'required|string|min:2',
             'description' => 'required|string|min:10',
 
         ]);
