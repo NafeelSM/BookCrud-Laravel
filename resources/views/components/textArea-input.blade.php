@@ -7,4 +7,4 @@
         focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
     'rows' => $rows, 'cols' => $cols
 ]) }}>
-</textarea>
+{{ $slot }}</textarea>

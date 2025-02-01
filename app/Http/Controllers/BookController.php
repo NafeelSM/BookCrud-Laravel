@@ -3,21 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
 
+        $title = "All Books";
         $books = Book::paginate(3);
 
     // Pass the paginated books to the view
-        return view('books.index', compact('books'));
+        return view('books.index', compact(['books', "title"]));
     }
 
     /**
@@ -45,7 +52,8 @@ class BookController extends Controller
 
         //create books
         $request->user()->books()->create($validated);
-        dd('created');
+        return redirect()->route('books.index')->with('success', 'Create Successfully.');
+
 
 
     }
@@ -55,7 +63,9 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show', compact('book'));
+        // dd($book);
+        $title = "Show Book";
+        return view('books.show', compact(['book', 'title']));
     }
 
     /**
@@ -63,7 +73,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        $title = 'Edit Book';
+        return view('books.edit', compact(['book', 'title']));
     }
 
     /**
@@ -76,7 +87,7 @@ class BookController extends Controller
             'author' => 'required|string|max:255',
 
         ]));
-        return redirect()->route('books.index');
+        return redirect()->route(route: 'books.index')->with('success', 'Update Successfully.');
     }
 
     /**
@@ -85,6 +96,6 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('books.index');
+        return redirect()->route('books.index')->with('success', 'Delete Successfully.');
     }
 }
